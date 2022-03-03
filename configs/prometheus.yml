@@ -1,0 +1,24 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: Raspberry System
+    static_configs:
+    - targets:
+      - host.docker.internal:9100
+  - job_name: Raspberry Docker
+    static_configs:
+    - targets:
+      - host.docker.internal:9323
+  - job_name: Network Pings
+    static_configs:
+    - targets:
+      - host.docker.internal:9500
+  - job_name: minio-job
+    bearer_token_file: /secrets/prometheus-minio.token
+    metrics_path: /minio/v2/metrics/cluster
+    scheme: https
+    static_configs:
+    - targets:
+      - s3.hoeser.dev

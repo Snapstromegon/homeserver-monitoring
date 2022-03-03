@@ -1,0 +1,55 @@
+version: "3.9"
+services:
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./configs/grafana.ini:/etc/grafana/grafana.ini
+      - grafana-storage:/var/lib/grafana
+    links:
+      - prometheus
+    depends_on:
+      - prometheus
+    restart: always
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./secrets/prometheus-minio.token:/secrets/prometheus-minio.token
+      - prometheus-storage:/prometheus
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+  pinger:
+    image: snapstromegon/pinger
+    ports:
+      - 9500:9500
+    restart: always
+    command:
+      - --hosts
+      - "1.1.1.1"
+      - "8.8.8.8"
+      - "192.168.178.1"
+  nodered:
+    image: nodered/node-red
+    ports:
+      - 1880:1880
+    restart: always
+    volumes:
+      - nodered-storage:/data
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+      - 1884:1884
+      - 9001:9001
+    restart: always
+    volumes:
+      - ./configs/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto-storage:/mosquitto/data
+volumes:
+  grafana-storage: {}
+  prometheus-storage: {}
+  nodered-storage: {}
+  mosquitto-storage: {}
