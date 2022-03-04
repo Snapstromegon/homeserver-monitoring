@@ -33,6 +33,7 @@ services:
       - "192.168.178.1"
   nodered:
     image: nodered/node-red
+    user: root
     ports:
       - 1880:1880
     restart: always
