@@ -15,6 +15,10 @@ scrape_configs:
     static_configs:
     - targets:
       - host.docker.internal:9500
+  - job_name: Tankerkönig
+    static_configs:
+    - targets:
+      - host.docker.internal:9501
   - job_name: minio-job
     bearer_token_file: /secrets/prometheus-minio.token
     metrics_path: /minio/v2/metrics/cluster
