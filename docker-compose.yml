@@ -2,6 +2,7 @@ version: "3.9"
 services:
   grafana:
     image: grafana/grafana
+    user: root
     ports:
       - "3000:3000"
     volumes:
@@ -14,6 +15,7 @@ services:
     restart: always
   prometheus:
     image: prom/prometheus
+    user: root
     volumes:
       - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./secrets/prometheus-minio.token:/secrets/prometheus-minio.token
@@ -48,6 +50,7 @@ services:
       - nodered-storage:/data
   mosquitto:
     image: eclipse-mosquitto
+    user: root
     ports:
       - 1883:1883
       - 1884:1884
