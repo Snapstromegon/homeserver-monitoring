@@ -31,6 +31,13 @@ services:
       - "1.1.1.1"
       - "8.8.8.8"
       - "192.168.178.1"
+  tankerkoenig:
+    image: snapstromegon/tankerkoenig-prometheus
+    ports:
+      - 9501:9501
+    restart: always
+    env_file:
+      ./secrets/tankerkoenig.env
   nodered:
     image: nodered/node-red
     user: root
