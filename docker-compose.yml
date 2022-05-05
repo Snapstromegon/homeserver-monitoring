@@ -60,6 +60,7 @@ services:
     restart: always
     volumes:
       - ./configs/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./secrets/mosquitto_passwd:/etc/mosquitto/mosquitto_passwd
       - mosquitto-storage:/mosquitto/data
 volumes:
   grafana-storage: {}
