@@ -48,6 +48,8 @@ services:
     ports:
       - 1880:1880
     restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - nodered-storage:/data # <- Complete Backup - is root
   mosquitto:
