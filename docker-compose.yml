@@ -22,7 +22,12 @@ services:
       - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml # <- From Configs
       - ./secrets/prometheus-minio.token:/secrets/prometheus-minio.token # <- From Secrets
       - prometheus-storage:/prometheus # <- snapshots - is root
-    command: --web.enable-admin-api
+    command:
+      - --web.enable-admin-api
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.console.libraries=/usr/share/prometheus/console_libraries
+      - --web.console.templates=/usr/share/prometheus/consoles
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: always
