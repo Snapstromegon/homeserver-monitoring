@@ -58,6 +58,18 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - nodered-storage:/data # <- Complete Backup - is root
+  
+  cadvisor:
+    image: gcr.io/google-containers/cadvisor:latest
+    container_name: cadvisor
+    ports:
+    - 8080:8080
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+  
   mosquitto:
     image: eclipse-mosquitto
     user: root
