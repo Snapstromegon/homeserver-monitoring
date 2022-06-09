@@ -69,6 +69,9 @@ services:
     - /var/run:/var/run:rw
     - /sys:/sys:ro
     - /var/lib/docker/:/var/lib/docker:ro
+    devices:
+    - /dev/kmsg
+    privileged: true
   
   mosquitto:
     image: eclipse-mosquitto
