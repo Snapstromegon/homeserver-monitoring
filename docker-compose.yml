@@ -60,7 +60,7 @@ services:
       - nodered-storage:/data # <- Complete Backup - is root
   
   cadvisor:
-    image: gcr.io/google-containers/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor
     container_name: cadvisor
     ports:
     - 8080:8080
@@ -69,8 +69,9 @@ services:
     - /var/run:/var/run:rw
     - /sys:/sys:ro
     - /var/lib/docker/:/var/lib/docker:ro
+    - /dev/disk/:/dev/disk:ro
     devices:
-    - /dev/kmsg
+    - "/dev/kmsg:/dev/kmsg"
     privileged: true
   
   mosquitto:
