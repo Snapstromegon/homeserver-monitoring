@@ -73,6 +73,7 @@ services:
     devices:
     - "/dev/kmsg:/dev/kmsg"
     privileged: true
+    restart: always
   
   mosquitto:
     image: eclipse-mosquitto
